@@ -25,10 +25,12 @@ function preload()
 {
   bg_img = loadImage('background.png');
   food = loadImage('melon.png');
-  rabbit = loadImage('Rabbit-01.png');;
-  blink = loadAnimation("blink_1.png","blink_2.png","blink_3.png");
-  eat = loadAnimation("eat_0.png" , "eat_1.png","eat_2.png","eat_3.png","eat_4.png");
-  sad = loadAnimation("sad_1.png","sad_2.png","sad_3.png");
+  rabbit = loadImage('./rabbit/Rabbit-01.png');
+  blink = loadAnimation("./rabbit/blink/blink_1.png", "./rabbit/blink/blink_2.png", 
+  "./rabbit/blink/blink_3.png");
+  eat = loadAnimation("./rabbit/eat/eat_0.png", "./rabbit/eat/eat_1.png", 
+  "./rabbit/eat/eat_2.png", "./rabbit/eat/eat_3.png", "./rabbit/eat/eat_4.png");
+  sad = loadAnimation("./rabbit/sad/sad_1.png", "./rabbit/sad/sad_2.png", "./rabbit/sad/sad_3.png");
   
   blink.playing = true;
   eat.playing = true;
