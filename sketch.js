@@ -55,7 +55,7 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(500,700);
+  createCanvas(500, windowHeight);//500, 700
   
   frameRate(80);
   
@@ -83,12 +83,12 @@ function setup() {
   mute_btn.mouseClicked(mute);
   
   rope = new Rope(7, {x: 245,y: 30});
-  ground = new Ground(200, 690, 600, 20);
+  ground = new Ground(200, windowHeight - 10, 600, 20);//200, 690
   
   blink.frameDelay = 20;
   eat.frameDelay = 20;
   
-  bunny = createSprite(230, 620, 100, 100);
+  bunny = createSprite(230, windowHeight - 80, 100, 100);//230, 620
   bunny.scale = 0.2;
   
   bunny.addAnimation('blinking', blink);
@@ -103,13 +103,13 @@ function setup() {
   
   rectMode(CENTER);
   ellipseMode(RADIUS);
+
   textSize(50)
 }
 
-function draw() 
-{
+function draw(){
   background(51);
-  image(bg_img,0,0,490,690);
+  image(bg_img, 0, 0, 500, windowHeight);//490, 690
 
   push();
   imageMode(CENTER);
@@ -117,7 +117,7 @@ function draw()
     image(food, fruit.position.x, fruit.position.y, 70, 70);
   }
   pop();
-
+  
   rope.show();
   Engine.update(engine);
   ground.show();
@@ -131,7 +131,7 @@ function draw()
   }
 
 
-  if(fruit!=null && fruit.position.y>=650)
+  if(fruit != null && fruit.position.y >= 650)
   {
     bunny.changeAnimation('crying', sad);
     fruit = null;
@@ -141,7 +141,7 @@ function draw()
 }
 
 function drop(){
-  if(fruit != null){
+  if(fruit_con != null){
     rope.break();
     fruit_con.detach();
     fruit_con = null;
