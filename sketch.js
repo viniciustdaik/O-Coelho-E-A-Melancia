@@ -71,7 +71,7 @@ function setup() {
   button.position(220, 30);
   button.size(50, 50);
   button.mouseClicked(drop);
-
+  
   blower = createImg('balloon.png');
   blower.position(10, 250);
   blower.size(150, 100);
@@ -84,13 +84,13 @@ function setup() {
   
   rope = new Rope(7, {x: 245,y: 30});
   ground = new Ground(200, 690, 600, 20);
-
+  
   blink.frameDelay = 20;
   eat.frameDelay = 20;
-
+  
   bunny = createSprite(230, 620, 100, 100);
   bunny.scale = 0.2;
-
+  
   bunny.addAnimation('blinking', blink);
   bunny.addAnimation('eating', eat);
   bunny.addAnimation('crying', sad);
@@ -98,9 +98,9 @@ function setup() {
   
   fruit = Bodies.circle(300,300,20);
   Matter.Composite.add(rope.body,fruit);
-
+  
   fruit_con = new Link(rope,fruit);
-
+  
   rectMode(CENTER);
   ellipseMode(RADIUS);
   textSize(50)
