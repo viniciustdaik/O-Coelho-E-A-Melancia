@@ -82,13 +82,13 @@ function setup() {
   mute_btn.size(50, 50);
   mute_btn.mouseClicked(mute);
   
-  rope = new Rope(7,{x:245,y:30});
-  ground = new Ground(200,690,600,20);
+  rope = new Rope(7, {x: 245,y: 30});
+  ground = new Ground(200, 690, 600, 20);
 
   blink.frameDelay = 20;
   eat.frameDelay = 20;
 
-  bunny = createSprite(230,620,100,100);
+  bunny = createSprite(230, 620, 100, 100);
   bunny.scale = 0.2;
 
   bunny.addAnimation('blinking', blink);
