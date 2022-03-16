@@ -55,7 +55,7 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(500, windowHeight);//500, 700
+  createCanvas(windowWidth, windowHeight);//500, 700
   
   frameRate(80);
   
@@ -68,27 +68,27 @@ function setup() {
   world = engine.world;
   
   button = createImg('cut_btn.png');
-  button.position(220, 30);
+  button.position(windowWidth / 2 - 30, 20);//220, 30
   button.size(50, 50);
   button.mouseClicked(drop);
   
   blower = createImg('balloon.png');
-  blower.position(10, 250);
+  blower.position(windowWidth / 2 - 300, 250);//10, 250
   blower.size(150, 100);
   blower.mouseClicked(airblow);
   
   mute_btn = createImg('mute.png');
-  mute_btn.position(400, 45);//450, 20
+  mute_btn.position(windowWidth - 80, 35);//450, 20
   mute_btn.size(50, 50);
   mute_btn.mouseClicked(mute);
   
-  rope = new Rope(7, {x: 245,y: 30});
-  ground = new Ground(200, windowHeight - 10, 600, 20);//200, 690
+  rope = new Rope(7, {x: windowWidth / 2 - 5, y: 30});//245, 30
+  ground = new Ground(windowWidth / 2, windowHeight - 10, windowWidth, 20);//200, 690, 600, 20
   
   blink.frameDelay = 20;
   eat.frameDelay = 20;
   
-  bunny = createSprite(230, windowHeight - 80, 100, 100);//230, 620
+  bunny = createSprite(windowWidth / 2 - 20, windowHeight - 80, 100, 100);//230, 620, 100, 100
   bunny.scale = 0.2;
   
   bunny.addAnimation('blinking', blink);
@@ -96,10 +96,10 @@ function setup() {
   bunny.addAnimation('crying', sad);
   bunny.changeAnimation('blinking', blink);
   
-  fruit = Bodies.circle(300,300,20);
-  Matter.Composite.add(rope.body,fruit);
+  fruit = Bodies.circle(windowWidth / 2 + 50, windowHeight / 2 - 50, 20);//300, 300, 20
+  Matter.Composite.add(rope.body, fruit);
   
-  fruit_con = new Link(rope,fruit);
+  fruit_con = new Link(rope, fruit);
   
   rectMode(CENTER);
   ellipseMode(RADIUS);
@@ -109,8 +109,18 @@ function setup() {
 
 function draw(){
   background(51);
-  image(bg_img, 0, 0, 500, windowHeight);//490, 690
-
+  if(mute_btn.x != windowWidth - 80 || mute_btn.y != 35){
+    mute_btn.position(windowWidth - 80, 35);
+  }
+  
+  blower.position(bunny.position.x - 300, 250);//10, 250
+  button.position(rope.x - 10, 20);
+  //bunny.x = windowWidth / 2 - 20;
+  //rope.x = bunny.x;
+  fruit.x = rope.x; 
+  
+  image(bg_img, 0, 0, windowWidth, windowHeight);//490, 690
+  
   push();
   imageMode(CENTER);
   if(fruit != null){
@@ -131,7 +141,7 @@ function draw(){
   }
 
 
-  if(fruit != null && fruit.position.y >= 650)
+  if(fruit != null && fruit.position.y >= windowHeight - 50)//650
   {
     bunny.changeAnimation('crying', sad);
     fruit = null;
