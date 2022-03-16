@@ -167,10 +167,13 @@ function collide(body,sprite)
 }
 
 function airblow(){
-  Matter.Body.applyForce(fruit, 
-    {x: 0, y:0}, 
-    {x: 0.01, y: 0});
-  air.play();
+  if(fruit != null){
+    Matter.Body.applyForce(fruit, 
+      {x: 0, y: 0}, 
+      {x: 0.01, y: 0});
+    air.play();
+  }
+  
 }
 
 function mute(){
