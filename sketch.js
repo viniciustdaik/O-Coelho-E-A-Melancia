@@ -140,12 +140,13 @@ function draw()
    
 }
 
-function drop()
-{
-  rope.break();
-  fruit_con.detach();
-  fruit_con = null;
-  cut_sound.play();
+function drop(){
+  if(fruit != null){
+    rope.break();
+    fruit_con.detach();
+    fruit_con = null;
+    cut_sound.play();
+  }
 }
 
 
