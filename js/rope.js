@@ -3,8 +3,10 @@ class Rope
     constructor(nlink, pointA)
     {
       this.nlink = nlink
+      this.cut = false;
   const group = Body.nextGroup(true);
-  const rects = Composites.stack(100, 100, this.nlink, 1, 5, 5, function(x, y) {
+  const rects = Composites.stack(windowWidth / 2, 100, this.nlink, 1, 5, 5, function(x, y) {
+      //100, 100
       return Bodies.rectangle(x, y, 30, 5, { collisionFilter: { group: group } });
   });
       
@@ -27,6 +29,7 @@ class Rope
     break()
     { //Matter.Composite.clear(this.rope,true);
       this.body = null;
+      this.cut = true;
     }
     
     show()
