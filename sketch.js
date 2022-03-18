@@ -180,7 +180,7 @@ function collide(body,sprite)
 }
 
 function airblow(){
-  if(fruit != null){
+  if(fruit != null && rope.cut == false){
     Matter.Body.applyForce(fruit, 
       {x: 0, y: 0}, 
       {x: 0.01, y: 0});
