@@ -117,7 +117,7 @@ function draw(){
   button.position(rope.x - 10, 20);
   //bunny.x = windowWidth / 2 - 20;
   //rope.x = bunny.x;
-  fruit.x = rope.x; 
+  //fruit.x = rope.x; 
   
   image(bg_img, 0, 0, windowWidth, windowHeight);//490, 690
   
