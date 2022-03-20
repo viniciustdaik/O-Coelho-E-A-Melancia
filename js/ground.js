@@ -1,9 +1,9 @@
 class Ground 
 {
-  constructor(x, y, w,h) 
+  constructor(x, y, w, h) 
   {
     let options = {
-     isStatic:true
+      isStatic:true
     };
     
     this.body = Bodies.rectangle(x, y, w, h, options);
@@ -18,7 +18,19 @@ class Ground
     rectMode(CENTER);
     noStroke();
     fill(148,127,146);
-    rect(pos.x,pos.y, this.w, this.h);
+    rect(pos.x, pos.y, this.w, this.h);
     pop();
   }
+
+  showStroke(){
+    let pos = this.body.position;
+    push();
+    rectMode(CENTER);
+    //noStroke();
+    stroke(255);
+    fill(148,127,146);
+    rect(pos.x, pos.y, this.w, this.h);
+    pop();
+  }
+  
 }
