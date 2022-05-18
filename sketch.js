@@ -13,7 +13,7 @@ var rope,fruit,ground;
 var fruit_con;
 var fruit_con2, fruit_con3;
 var conlevel2, con2level2;
-var fruitlevel2, ropelevel2, rope2level2;
+var fruitlevel2, ropelevel2, rope2level2, fruit_options;
 
 var bubble, bubbleimg;
 var starimg;
@@ -67,6 +67,10 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight);//500, 700
+
+  var rabitImg = createImg('./rabbit/blink/blink_1.png');
+  rabitImg.position(width - width - width - width, height - height - height, height);
+  rabitImg.size(150, 180);
   
   frameRate(80);
   
@@ -74,7 +78,7 @@ function setup() {
   blink.frameDelay = 20;
   eat.frameDelay = 20;
 
-  var fruit_options = {
+  fruit_options = {
     restitution: 0.8
   }
 
@@ -162,7 +166,8 @@ function draw(){
   if(mute_btn.x != windowWidth - 80 || mute_btn.y != 35){
     mute_btn.position(windowWidth - 80, 35);
   }
-  if(collidelevel2(fruitlevel2, bubble, 40) == true && level == 2){
+  if(collidelevel2(fruitlevel2, bubble, 40) == true && level == 2 
+  && isGameover == false && fruitlevel2 != null){
     engine.world.gravity.y = -1;
     bubble.position.x = fruitlevel2.position.x;
     bubble.position.y = fruitlevel2.position.y;
@@ -218,7 +223,7 @@ function draw(){
   }
   if(fruit == null && level == 1){
     setTimeout(() => {
-      if(level == 1){
+      if(level == 1 && fruit == null){
         levelwork();
       }
     }, 1500);
@@ -226,7 +231,7 @@ function draw(){
 
   if(fruitlevel2 == null && level == 2){
     setTimeout(() => {
-      if(level == 2){
+      if(level == 2 && fruitlevel2 == null){
         levelwork();
       }
     }, 1500);
@@ -246,7 +251,18 @@ function draw(){
     bunny.changeAnimation('crying', sad);
     fruitlevel2 = null;
     sad_sound.play();
-   }
+  }
+
+  if(fruitlevel2 != null && fruitlevel2.position.y <= -50 && level == 2)//650
+  { 
+    bubble.x = windowWidth / 2 - 210;
+    bubble.y = 460;
+    bubble.visible = false;
+    isGameover = true;
+    bunny.changeAnimation('crying', sad);
+    fruitlevel2 = null;
+    sad_sound.play();
+  }
    
 }
 
@@ -358,7 +374,8 @@ function levelwork(){
     },
       function(isConfirm) {
         if (isConfirm) {
-          location.reload();
+          //location.reload();
+          restart();
         }
       }
     );
@@ -416,3 +433,36 @@ function level2(){
   //blower.position(windowWidth + windowWidth, windowHeight - windowHeight - windowHeight);
   bubble.visible = true;
 }
+
+function restart(){
+  if(level == 1 && fruit == null){
+    fruit = Bodies.circle(windowWidth / 2 + 50, windowHeight / 2 - 50, 20);//300, 300, 20
+    World.add(world, fruit);
+    
+    rope = new Rope(8, {x: windowWidth / 2 - 5, y: 30});//(og version)7(number of ropes), 245, 30
+    //(my version)7, windowWidth / 2 - 5, 30
+    rope2 = new Rope(8, {x: windowWidth / 2 - 5 + 5 + 50 + 70 + 50 + 50, y: 40});
+    
+    fruit_con = new Link(rope, fruit);
+    fruit_con2 = new Link(rope2, fruit);
+  }
+  if(level == 2 && fruitlevel2 == null){
+    engine.world.gravity.y = 1;
+
+    fruitlevel2 = Bodies.circle(windowWidth / 2 - 270, 400, 15, fruit_options);//100, 400, 15, fruit_opions
+    World.add(world, fruitlevel2);
+    
+    ropelevel2 = new RopeLevel2Game(4, {x: windowWidth / 2 - 270, y: 330});//230, 330
+    rope2level2 = new RopeLevel2Game(3, {x: windowWidth / 2 - 450, y: 450});//50, 450
+    
+    conlevel2 = new LinkLevel2(ropelevel2, fruitlevel2);
+    con2level2 = new LinkLevel2(rope2level2, fruitlevel2);
+    
+    //bubble.x = windowWidth / 2 - 210;
+    //bubble.y = bubble = 460;
+    bubble.visible = true;
+  }
+  isGameover = false;
+  bunny.changeAnimation('blinking', blink);
+}
+
